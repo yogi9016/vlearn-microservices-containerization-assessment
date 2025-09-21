@@ -44,8 +44,8 @@ The `docker-compose.yml` file:
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
-cd <your-repo-folder>
+git clone https://github.com/yogi9016/vlearn-microservices-containerization-assessment.git
+cd vlearn-microservices-containerization-assessment
 ```
 
 ### 2. Build & Start Services
@@ -65,6 +65,7 @@ Check if services are running:
 ```bash
 curl http://localhost:3000/health   # User Service
 curl http://localhost:3001/health   # Product Service
+curl http://localhost:3002/health   # Order Service
 curl http://localhost:3003/health   # Gateway Service
 ```
 
@@ -187,8 +188,18 @@ pip install pytest requests
 2.	Add your test files in the tests folder:
 
 -   [test_health_check.py](tests/test_health_check.py)
--   [test_app.py](tests/test_app.py)
+    -   GET http://localhost:3000 - User Service Health check 
+    -   GET http://localhost:3001 - Product Service Health check 
+    -   GET http://localhost:3002 - Order Service Health check 
+    -   GET http://localhost:3003 - Gateway Service Health check 
 
+-   [test_app.py](tests/test_app.py)
+    -   GET http://localhost:3003/api/users - Get user list
+    -   GET http://localhost:3003/api/products - Get product list
+    -   GET http://localhost:3003/api/orders - Get orders list
+    -   POST http://localhost:3003/api/orders - Create order with the paylaod {"userId": 1,"productId": 1}
+    -   GET http://localhost:3003/api/orders - Get orders list, to check order count is increased
+    
 3.	Run the tests:
 
 ```bash
